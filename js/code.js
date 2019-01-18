@@ -1,4 +1,7 @@
 const slider = document.getElementById('slider');
+const info = document.getElementById('info');
+const tracksURL = 'https://api.jamendo.com/v3.0/playlists/tracks/?client_id=f612760f&format=json&id=';
+
 let noise;
 let noiseVol;
 let sounds = [];
@@ -16,9 +19,15 @@ let wasNear = false;
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	playlist = (JSON.parse(samplePlaylistJSONString)).results[0].tracks;
-	loadNextSound();
-	loadNextSound();
+	const playlistId = playlists[floor(random(playlists.length))].id;
+	console.log(playlistId)
+	// playlist = (JSON.parse(samplePlaylistJSONString)).results[0].tracks;
+	loadJSON(tracksURL + playlistId, json => {
+		playlist = json.results[0].tracks;
+		loadNextSound();
+		loadNextSound();	
+	});
+
 }
 
 function setup() {
@@ -30,31 +39,34 @@ function setup() {
 	noise.play();
 	noise.setVolume(0.5, 1);
 
-	sound = sounds[curSoundPlay++];
-	sound.setVolume(0);
-	sound.play();
+	playNextLoadedSound();
 	soundPos = floor(random(40, 100));
 	console.log("Sound pos " + soundPos)
 }
 
 function loadNextSound() {
 	if (curSoundLoad === playlist.length) return;
+	const { artist_name, name } = playlist[curSoundLoad];
 
 	loadSound(playlist[curSoundLoad++].audio, s => {
 		s.addCue(s.duration() / 2, loadNextSound);
 		s.addCue(s.duration() - 1, playNextLoadedSound);
-		sounds.push(s);
+		sounds.push({ s, artist_name, name});
 	});
 }
 
 function playNextLoadedSound() {
 	curSoundPlay = curSoundPlay === sounds.length ? 0 : curSoundPlay;
 
-	sound.stop();
-	sound.setVolume(0, 0.5);
-	sound = sounds[curSoundPlay++];
+	// setInfo();
+	sound = sounds[curSoundPlay++].s;
 	sound.setVolume(soundVol, 0.5);
 	sound.play();
+}
+
+function setInfo() {
+	const { artist_name, name } = sounds[curSoundPlay];
+	info.innerText = near ? artist_name + ' ' + name : '';
 }
 
 const threshold = 20;
