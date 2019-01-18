@@ -11,6 +11,7 @@ let soundPos;
 let playlists;
 let playlist;
 let near;
+let wasNear = false;
 
 function preload() {
 	noise = loadSound('noise.mp3');
@@ -22,8 +23,6 @@ function preload() {
 
 function setup() {
 	createCanvas(innerWidth, innerHeight);
-	ellipseMode(RADIUS);
-	angleMode(DEGREES);
 	window.map = map;
 
 	noise.setLoop(true);
@@ -35,6 +34,7 @@ function setup() {
 	sound.setVolume(0);
 	sound.play();
 	soundPos = floor(random(40, 100));
+	console.log("Sound pos " + soundPos)
 }
 
 function loadNextSound() {
@@ -48,7 +48,7 @@ function loadNextSound() {
 }
 
 function playNextLoadedSound() {
-	curSoundPlay = curSoundPlay === playlist.length ? 0 : curSoundPlay;
+	curSoundPlay = curSoundPlay === sounds.length ? 0 : curSoundPlay;
 
 	sound.stop();
 	sound.setVolume(0, 0.5);
@@ -58,17 +58,38 @@ function playNextLoadedSound() {
 }
 
 const threshold = 20;
+function setSoundPos(val) {
+	let pos;
+
+	const right = val > 50;
+	if (right) {
+		pos = floor(random(0, val - threshold));
+	} else {
+		pos = floor(random(val + threshold, 100));
+	}
+	pos = pos < 0 ? 0 : pos > 100 ? 100 : pos;
+	console.log("Sound pos " + pos);
+	soundPos = pos;
+}
+
 slider.oninput = (e) => {
 	const val = e.target.value;
 	const dist = Math.abs(val - soundPos);
 	near = dist < threshold;
 	if (near) {
+		wasNear = true;
 		noiseVol = +(map(dist, threshold, 0, 1, 0).toFixed(2));
 		soundVol = +(map(dist, threshold, 0, 0, 1).toFixed(2));
-		// console.log({noiseVol, soundVol})
 		noise.setVolume(noiseVol, 0.2);
 		sound.setVolume(soundVol, 0.2);
 	} else {
 		sound.setVolume(0, 0.2);
+		if (wasNear) {
+			setSoundPos(+val);
+			loadNextSound();
+			playNextLoadedSound();
+			wasNear = false;
+		}
 	}
+
 };
