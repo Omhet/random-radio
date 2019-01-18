@@ -29,3 +29,9 @@ function draw() {
 	background(200);
 }
 
+slider.oninput = (e) => {
+	const val = e.target.value;
+	const dist = Math.abs(val - soundPos);
+	const near = dist < 20;
+	near && console.log(near)
+};
