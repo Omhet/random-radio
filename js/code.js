@@ -13,22 +13,36 @@ let curSoundPlay = 0;
 let soundPos;
 let playlists;
 let playlist;
+let playlistId;
 let near;
 let wasNear = false;
 
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	const playlistId = playlists[floor(random(playlists.length))].id;
-	console.log(playlistId)
-	// playlist = (JSON.parse(samplePlaylistJSONString)).results[0].tracks;
+	loadPlaylist();
+ }
+
+ function loadPlaylist() {
+	const playlistId = getPlaylistId();
 	loadJSON(tracksURL + playlistId, json => {
+		console.log(json.results);
 		playlist = json.results[0].tracks;
 		loadNextSound();
 		loadNextSound();	
 	});
+ }
 
-}
+ function getPlaylistId() {
+	while(true) {
+		const id = playlists[floor(random(playlists.length))].id;
+		if (id !== playlistId) {
+			playlistId = id;
+			return id;
+		}
+	}
+ }
+
 
 function setup() {
 	createCanvas(innerWidth, innerHeight);
@@ -41,7 +55,7 @@ function setup() {
 
 	playNextLoadedSound();
 	soundPos = floor(random(40, 100));
-	console.log("Sound pos " + soundPos)
+	console.log("Sound pos: " + soundPos)
 }
 
 function loadNextSound() {
@@ -58,7 +72,6 @@ function loadNextSound() {
 function playNextLoadedSound() {
 	curSoundPlay = curSoundPlay === sounds.length ? 0 : curSoundPlay;
 
-	// setInfo();
 	sound = sounds[curSoundPlay++].s;
 	sound.setVolume(soundVol, 0.5);
 	sound.play();
