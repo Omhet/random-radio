@@ -1,5 +1,21 @@
 const slider = document.getElementById('slider');
 const info = document.getElementById('info');
+const knobContainer = document.querySelector('.knob-container');
+const knobVisuals = document.querySelector('.knob-visuals');
+const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
+	min: 0,
+	max: 100,
+	step: 1,
+	initial: 0,
+	visualContext: function () {
+		// this.textDisplay = this.element.querySelector('.current-value-indicator');
+	},
+	updateVisuals: function (norm, val) {
+		// this.textDisplay.innerText = val;
+		this.element.style[this.transformProperty] = 'rotate(' + (360 * norm) + 'deg)';
+	}
+});
+
 const tracksURL = 'https://api.jamendo.com/v3.0/playlists/tracks/?client_id=f612760f&format=json&id=';
 
 let noise;
@@ -21,9 +37,9 @@ function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
 	loadPlaylist();
- }
+}
 
- function loadPlaylist() {
+function loadPlaylist() {
 	const playlistId = getPlaylistId();
 	console.log(playlistId);
 	loadJSON(tracksURL + playlistId, json => {
@@ -35,23 +51,22 @@ function preload() {
 		playlist = json.results[0].tracks;
 		console.log(playlist);
 		loadNextSound();
-		loadNextSound();	
+		loadNextSound();
 	});
- }
+}
 
- function getPlaylistId() {
-	while(true) {
+function getPlaylistId() {
+	while (true) {
 		const id = playlists[floor(random(playlists.length))].id;
 		if (id !== playlistId) {
 			playlistId = id;
 			return id;
 		}
 	}
- }
+}
 
 
 function setup() {
-	createCanvas(innerWidth, innerHeight);
 	window.map = map;
 
 	noise.setLoop(true);
@@ -75,7 +90,7 @@ function loadNextSound() {
 	loadSound(playlist[curSoundLoad++].audio, s => {
 		s.addCue(s.duration() / 2, loadNextSound);
 		s.addCue(s.duration() - 1, playNextLoadedSound);
-		sounds.push({ s, artist_name, name});
+		sounds.push({ s, artist_name, name });
 	});
 }
 
@@ -107,7 +122,7 @@ function setSoundPos(val) {
 	soundPos = pos;
 }
 
-slider.oninput = (e) => {
+knobInput.addEventListener('change', (e) => {
 	const val = e.target.value;
 	const dist = Math.abs(val - soundPos);
 	near = dist < threshold;
@@ -127,4 +142,4 @@ slider.oninput = (e) => {
 		}
 	}
 
-};
+});
