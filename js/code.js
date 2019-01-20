@@ -25,9 +25,15 @@ function preload() {
 
  function loadPlaylist() {
 	const playlistId = getPlaylistId();
+	console.log(playlistId);
 	loadJSON(tracksURL + playlistId, json => {
-		console.log(json.results);
+		const results = json.results[0];
+		if (!results) {
+			loadPlaylist();
+			return;
+		}
 		playlist = json.results[0].tracks;
+		console.log(playlist);
 		loadNextSound();
 		loadNextSound();	
 	});
@@ -59,7 +65,11 @@ function setup() {
 }
 
 function loadNextSound() {
-	if (curSoundLoad === playlist.length) return;
+	if (curSoundLoad === playlist.length) {
+		curSoundLoad = 0;
+		loadPlaylist();
+		return;
+	};
 	const { artist_name, name } = playlist[curSoundLoad];
 
 	loadSound(playlist[curSoundLoad++].audio, s => {
@@ -73,7 +83,7 @@ function playNextLoadedSound() {
 	curSoundPlay = curSoundPlay === sounds.length ? 0 : curSoundPlay;
 
 	sound = sounds[curSoundPlay++].s;
-	sound.setVolume(soundVol, 0.5);
+	sound.setVolume(soundVol);
 	sound.play();
 }
 
