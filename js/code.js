@@ -84,7 +84,7 @@ function loadNextSound() {
 		curSoundLoad = 0;
 		loadPlaylist();
 		return;
-	};
+	}
 	const { artist_name, name } = playlist[curSoundLoad];
 
 	loadSound(playlist[curSoundLoad++].audio, s => {
@@ -97,6 +97,7 @@ function loadNextSound() {
 function playNextLoadedSound() {
 	curSoundPlay = curSoundPlay === sounds.length ? 0 : curSoundPlay;
 
+	if (sound) sound.pause();
 	sound = sounds[curSoundPlay++].s;
 	sound.setVolume(soundVol);
 	sound.play();
