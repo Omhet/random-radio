@@ -34,7 +34,7 @@ let wasNear = false;
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	// loadPlaylist();
+	loadPlaylist();
 }
 
 function loadPlaylist() {
