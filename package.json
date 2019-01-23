@@ -1,0 +1,23 @@
+{
+  "name": "radio",
+  "version": "1.0.0",
+  "description": "Demo presenting old radio with random music",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Omhet/random-radio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Omhet/random-radio/issues"
+  },
+  "homepage": "https://omhet.github.io/radio",
+  "dependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
