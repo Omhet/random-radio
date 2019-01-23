@@ -1,0 +1,70 @@
+body {
+    padding: 0;
+    margin: 0 auto;
+    width: 900px;
+    height: 99vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#p5_loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background: #555;
+    color: #eee;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio {
+    width: 650px;
+    height: 433px;
+    background-image: url(../img/radio.png);
+    position: relative;
+}
+
+.radio-shadow {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    z-index: -1;
+    width: 80%;
+    height: 30%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.knob-container {
+    position: absolute;
+    top: 28%;
+    left: 62%;
+    margin: 2rem 0;
+    width: 128px;
+    height: 131px;
+}
+
+.knob-visuals {
+    position: relative;
+    background-image: url(../img/knob.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.knob-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 5px);  
+    background-color: #555;
+}
