@@ -8,11 +8,9 @@ const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
 	step: 1,
 	initial: 0,
 	visualContext: function () {
-		// this.textDisplay = this.element.querySelector('.current-value-indicator');
 	},
 	updateVisuals: function (norm, val) {
-		// this.textDisplay.innerText = val;
-		this.element.style[this.transformProperty] = 'rotate(' + (360 * norm) + 'deg)';
+		this.element.style[this.transformProperty] = 'rotate(' + (270 * norm) + 'deg)';
 	}
 });
 

@@ -24,16 +24,30 @@ body {
     align-items: center;
 }
 
+.radio {
+    width: 650px;
+    height: 433px;
+    background-image: url(../img/radio.png);
+    position: relative;
+}
+
 .knob-container {
+    position: absolute;
+    top: 28%;
+    left: 62%;
     margin: 2rem 0;
-    width: 15vw;
-    height: 15vw;
+    width: 128px;
+    height: 131px;
 }
 
 .knob-visuals {
-    border: 1px solid #555;
-    border-radius: 50%;
+    /* border: 1px solid #555; */
+    /* border-radius: 50%; */
     position: relative;
+    background-image: url(../img/knob.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
 }
 
 .knob-indicator {
