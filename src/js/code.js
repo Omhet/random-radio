@@ -1,7 +1,12 @@
+const gifsUrl = 'http://api.giphy.com/v1/gifs/random?api_key=d99AwVAry9IyXbyfO2a3s5BmhzkcLBRa&tag=music';
+const tracksURL = 'https://api.jamendo.com/v3.0/playlists/tracks/?client_id=f612760f&format=json&id=';
+
 const slider = document.getElementById('slider');
 const info = document.getElementById('info');
 const knobContainer = document.querySelector('.knob-container');
 const knobVisuals = document.querySelector('.knob-visuals');
+const noiseGifImg = document.getElementById('noise-gif');
+const randomGifImg = document.getElementById('random-gif');
 const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
 	min: 0,
 	max: 100,
@@ -13,8 +18,6 @@ const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
 		this.element.style[this.transformProperty] = 'rotate(' + (270 * norm) + 'deg)';
 	}
 });
-
-const tracksURL = 'https://api.jamendo.com/v3.0/playlists/tracks/?client_id=f612760f&format=json&id=';
 
 let noise;
 let noiseVol;
@@ -30,11 +33,13 @@ let playlist;
 let playlistId;
 let near;
 let wasNear = false;
+let randomGif;
 
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	// loadPlaylist();
+	loadPlaylist();
+	loadNextGif();
 }
 
 function loadPlaylist() {
@@ -129,12 +134,17 @@ knobInput.addEventListener('change', (e) => {
 		wasNear = true;
 		noiseVol = +(map(dist, threshold, 0, 1, 0).toFixed(2));
 		soundVol = +(map(dist, threshold, 0, 0, 1).toFixed(2));
+
+		console.log(noiseVol)
+		noiseGifImg.style.opacity = noiseVol + 0.1;
 		noise.setVolume(noiseVol, 0.2);
 		sound.setVolume(soundVol, 0.2);
 	} else {
 		sound.setVolume(0, 0.2);
+		noiseGifImg.style.opacity = 1;
 		if (wasNear) {
 			setSoundPos(+val);
+			loadNextGif();
 			loadNextSound();
 			playNextLoadedSound();
 			wasNear = false;
@@ -142,3 +152,11 @@ knobInput.addEventListener('change', (e) => {
 	}
 
 });
+
+
+function loadNextGif() {
+	loadJSON(gifsUrl, (data) => {
+        console.log(data.data.image_url)
+        randomGifImg.src = data.data.image_url
+    });
+}
