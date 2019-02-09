@@ -38,7 +38,7 @@ let randomGif;
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	loadPlaylist();
+	// loadPlaylist();
 	loadNextGif();
 }
 
