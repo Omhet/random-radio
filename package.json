@@ -1,22 +1,22 @@
 {
   "name": "radio",
   "version": "1.0.0",
-  "description": "Demo presenting old radio with random music",
+  "description": "Demo presenting old tv-radio with random music",
   "main": "index.js",
   "scripts": {
     "deploy": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Omhet/random-radio.git"
+    "url": "git+https://github.com/Omhet/tvdio.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Omhet/random-radio/issues"
+    "url": "https://github.com/Omhet/tvdio/issues"
   },
-  "homepage": "https://omhet.github.io/radio",
+  "homepage": "https://omhet.github.io/tvdio",
   "dependencies": {
     "gh-pages": "^2.0.1"
   }
