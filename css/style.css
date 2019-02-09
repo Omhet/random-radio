@@ -1,3 +1,7 @@
+html {
+    background: #232931;
+}
+
 body {
     padding: 0;
     margin: 0 auto;
@@ -7,6 +11,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+canvas {
+    display: none;
 }
 
 #p5_loading {
@@ -16,39 +25,40 @@ body {
     z-index: 1;
     width: 100vw;
     height: 100vh;
-    background: #555;
+    background: #232931;
     color: #eee;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 3rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.radio {
-    width: 650px;
-    height: 433px;
-    background-image: url(../img/radio.png);
-    position: relative;
+.tv-icon {
+    animation: rotate 2s ease-in-out infinite alternate;
 }
 
-.radio-shadow {
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    z-index: -1;
-    width: 80%;
-    height: 30%;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.1);
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+  }
+
+.loading-text {
+    margin-top: 3rem;
 }
 
 .knob-container {
     position: absolute;
-    top: 28%;
-    left: 62%;
+    top: 25%;
+    left: 83%;
     margin: 2rem 0;
-    width: 128px;
-    height: 131px;
+    width: 70px;
+    height: 70px;
 }
 
 .knob-visuals {
@@ -59,12 +69,41 @@ body {
     background-position: center center;
 }
 
-.knob-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+.tv {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+#noise-gif, #random-gif, #tv-img {
     position: absolute;
-    bottom: 10%;
-    left: calc(50% - 5px);  
-    background-color: #555;
+}
+
+#noise-gif, #random-gif {
+    top: 39px;
+    left: 42px;
+    width: 550px;
+    height: 430px; 
+}
+
+#tv-img {
+    width: inherit;
+    height: inherit; 
+}
+
+#noise-gif-back, #random-gif-back {
+    filter: blur(20px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#noise-gif-back {
+    z-index: -1;
+}
+
+#random-gif-back { 
+    z-index: -2;
 }
