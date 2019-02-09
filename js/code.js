@@ -1,4 +1,4 @@
-const gifsUrl = 'http://api.giphy.com/v1/gifs/random?api_key=d99AwVAry9IyXbyfO2a3s5BmhzkcLBRa&tag=music';
+const gifsUrl = 'https://api.giphy.com/v1/gifs/random?api_key=d99AwVAry9IyXbyfO2a3s5BmhzkcLBRa&tag=music';
 const tracksURL = 'https://api.jamendo.com/v3.0/playlists/tracks/?client_id=f612760f&format=json&id=';
 
 const slider = document.getElementById('slider');
