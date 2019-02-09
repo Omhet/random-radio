@@ -30,11 +30,11 @@ body {
 
 .knob-container {
     position: absolute;
-    top: 28%;
-    left: 62%;
+    top: 25%;
+    left: 83%;
     margin: 2rem 0;
-    width: 128px;
-    height: 131px;
+    width: 70px;
+    height: 70px;
 }
 
 .knob-visuals {
@@ -45,20 +45,10 @@ body {
     background-position: center center;
 }
 
-.knob-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 10%;
-    left: calc(50% - 5px);  
-    background-color: #555;
-}
-
 .tv {
     position: relative;
-    width: 700px;
-    height: 500px;
+    width: 800px;
+    height: 600px;
 }
 
 #noise-gif, #random-gif, #tv-img {
@@ -67,9 +57,9 @@ body {
 
 #noise-gif, #random-gif {
     top: 39px;
-    left: 30px;
-    width: 500px;
-    height: 350px; 
+    left: 32px;
+    width: 600px;
+    height: 450px; 
 }
 
 #tv-img {

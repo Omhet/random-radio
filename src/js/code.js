@@ -15,7 +15,7 @@ const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
 	visualContext: function () {
 	},
 	updateVisuals: function (norm, val) {
-		this.element.style[this.transformProperty] = 'rotate(' + (270 * norm) + 'deg)';
+		this.element.style[this.transformProperty] = 'rotate(' + (360 * norm) + 'deg)';
 	}
 });
 
@@ -38,7 +38,7 @@ let randomGif;
 function preload() {
 	noise = loadSound('noise.mp3');
 	playlists = (JSON.parse(playlistsJSONString)).results;
-	// loadPlaylist();
+	loadPlaylist();
 	loadNextGif();
 }
 
@@ -54,7 +54,7 @@ function loadPlaylist() {
 		playlist = json.results[0].tracks;
 		console.log(playlist);
 		loadNextSound();
-		loadNextSound();
+		// loadNextSound();
 	});
 }
 
@@ -78,6 +78,8 @@ function setup() {
 	noise.setVolume(0.5, 1);
 
 	playNextLoadedSound();
+	loadNextSound();
+
 	soundPos = floor(random(40, 100));
 	console.log("Sound pos: " + soundPos)
 }
@@ -135,13 +137,13 @@ knobInput.addEventListener('change', (e) => {
 		noiseVol = +(map(dist, threshold, 0, 1, 0).toFixed(2));
 		soundVol = +(map(dist, threshold, 0, 0, 1).toFixed(2));
 
-		console.log(noiseVol)
 		noiseGifImg.style.opacity = noiseVol + 0.1;
 		noise.setVolume(noiseVol, 0.2);
 		sound.setVolume(soundVol, 0.2);
 	} else {
 		sound.setVolume(0, 0.2);
 		noiseGifImg.style.opacity = 1;
+
 		if (wasNear) {
 			setSoundPos(+val);
 			loadNextGif();
