@@ -13,6 +13,10 @@ body {
     align-items: center;
 }
 
+canvas {
+    display: none;
+}
+
 #p5_loading {
     position: absolute;
     top: 0;
@@ -65,4 +69,21 @@ body {
 #tv-img {
     width: inherit;
     height: inherit; 
+}
+
+#noise-gif-back, #random-gif-back {
+    filter: blur(20px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#noise-gif-back {
+    z-index: -1;
+}
+
+#random-gif-back { 
+    z-index: -2;
 }

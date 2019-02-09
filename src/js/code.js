@@ -6,7 +6,9 @@ const info = document.getElementById('info');
 const knobContainer = document.querySelector('.knob-container');
 const knobVisuals = document.querySelector('.knob-visuals');
 const noiseGifImg = document.getElementById('noise-gif');
+const noiseGifBackImg = document.getElementById('noise-gif-back');
 const randomGifImg = document.getElementById('random-gif');
+const randomGifBackImg = document.getElementById('random-gif-back');
 const knobInput = new PrecisionInputs.KnobInput(knobContainer, knobVisuals, {
 	min: 0,
 	max: 100,
@@ -54,7 +56,6 @@ function loadPlaylist() {
 		playlist = json.results[0].tracks;
 		console.log(playlist);
 		loadNextSound();
-		// loadNextSound();
 	});
 }
 
@@ -138,11 +139,13 @@ knobInput.addEventListener('change', (e) => {
 		soundVol = +(map(dist, threshold, 0, 0, 1).toFixed(2));
 
 		noiseGifImg.style.opacity = noiseVol + 0.1;
+		noiseGifBackImg.style.opacity = noiseVol + 0.1;
 		noise.setVolume(noiseVol, 0.2);
 		sound.setVolume(soundVol, 0.2);
 	} else {
 		sound.setVolume(0, 0.2);
 		noiseGifImg.style.opacity = 1;
+		noiseGifBackImg.style.opacity = 1;
 
 		if (wasNear) {
 			setSoundPos(+val);
@@ -158,7 +161,8 @@ knobInput.addEventListener('change', (e) => {
 
 function loadNextGif() {
 	loadJSON(gifsUrl, (data) => {
-        console.log(data.data.image_url)
-        randomGifImg.src = data.data.image_url
+        console.log(data.data.image_url);
+		randomGifImg.src = data.data.image_url;
+		randomGifBackImg.src = data.data.image_url;
     });
 }
