@@ -95,7 +95,10 @@ function loadNextSound() {
 
 	loadSound(playlist[curSoundLoad++].audio, s => {
 		s.addCue(s.duration() / 2, loadNextSound);
-		s.addCue(s.duration() - 1, playNextLoadedSound);
+		s.addCue(s.duration() - 1, () => {
+			playNextLoadedSound();
+			loadNextGif();
+		});
 		sounds.push({ s, artist_name, name });
 	});
 }
@@ -161,8 +164,8 @@ knobInput.addEventListener('change', (e) => {
 
 function loadNextGif() {
 	loadJSON(gifsUrl, (data) => {
-        console.log(data.data.image_url);
+		console.log(data.data.image_url);
 		randomGifImg.src = data.data.image_url;
 		randomGifBackImg.src = data.data.image_url;
-    });
+	});
 }
