@@ -1,2 +1,2 @@
 # Tvdio
-Demo presenting old tv-radio with random music
+Demo presenting old tv with random music
